@@ -1,4 +1,4 @@
-# I am Rich App
+# 1. I am Rich App
 ## Story
 This app comes from something really interesting that happened back in the days when we first had access to the iOS App Store. So there was a guy called Armin Heinrich who created this app called I Am Rich. And the interesting thing was that it's a really simple app, but he charged a whopping $999.99. And all it does is it just displays a single red ruby on the screen, nothing else. And this app that took him probably two seconds to create ended up getting bought by about eight people, some of whom thought it was a joke and they just clicked buy to see what would happen - what happened was that they got charged the full amount and there's a lot of really funny reviews for this app on the App Store.
 

@@ -1,5 +1,10 @@
 # iOS Swift projects
 
-## I am Rich App
+Note: Inside each project folder, I have created a `project-name.md` file that describes how to create the corresponding app. 
 
-My first App showing  a label and a static image. Created using xCode Stroyboard. 
+## 02. Dicee App
+This app has functionality. 
+
+
+## 01. I am Rich App
+My first App showing static contents. Created using xCode Storyboard. 
