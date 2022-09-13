@@ -19,7 +19,10 @@ Click on the file `ViewController.swift` in the folder view on the left pane, th
 
 To visually relate code and UI on storyboard, go to storyboard, and click on the `Adjust Editor Option` icon that shapes like a multi-deck hamburger, and check `Asistant` view. So the UI builder (storyboard) and the code is side by side. 
 
-In order to be able to refer to specifit UI element on the UI builder, need to create an `Interface Builder outlet` (`IB outlet`): hold down `control` button of keyboard and `drag` the UI element to the code file. Drop the DiceOne Image View elem as the first line in the UIViewController class. Then a window will pop up, asking for the `name` of the connection, this will be the name used in the code file to refer to this Image View element in UI builder. Name it "diceImageView1", and click `Connect`. (This is camel casing naming convention). Then you can see this line of code is inserted in the code: `@IBOutlet weak var diceImageView1: UIImageView!`. 
+In order to be able to refer to specifit UI element on the UI builder, need to create an `Interface Builder outlet` (`IB outlet`): hold down `control` button of keyboard and `drag` the UI element to the code file. Drop the DiceOne Image View elem as the first line in the UIViewController class. Then a window will pop up, asking for the `name` of the connection, this will be the name used in the code file to refer to this Image View element in UI builder. Name it "diceImageView1", and click `Connect`. (This is camel casing naming convention). Then you can see this line of code is inserted in the code: 
+```
+@IBOutlet weak var diceImageView1: UIImageView!
+```
 
 Note: when we drag and drop elements from UI to code, there are codes created in side the storyboard (you can right-click it in left folder pane and select "Open As" -> "Source Code" to view its contents).
 
@@ -68,6 +71,80 @@ class ViewController: UIViewController {
     }
 }
 ```
+
+## Connect button from storyboard to code
+Hold on `control` key and drag the "Roll" button below the function viewDidLoad(), the window pop out and shows `Connection` type as `Action` by default - because we usually want button to perform actionns. However, you can select `Outlet` connection type of you want to change its appearance. The default `Event` for this button is `Touch Up Inside`, and there are a lot of Events to choose from. Name the button "rollButtonPressed", and choose the `Type` that triggers the action as `UIButton`. Then click `Connect`. Notice the code that is generated: 
+```
+@IBAction func rollButtonPressed(_ sender: UIButton) {
+}
+```
+
+Note that this time an `IBAction` is generated, which is the code that got triggered when the defined action happens. If you put a `print` statement inside this function:
+```
+@IBAction func rollButtonPressed(_ sender: UIButton) {
+    print("Button got tapped. ")
+}
+```
+Now run the app, and tap the "Roll" button. Then we can see the string prints on the console. And this happens every time the button is tapped. 
+
+On a higher level, we can see that `IBOutlet` lets our code to change the UI, while `IBAction` lets our UI to change the code. 
+
+Now if we want to change the dice images when we tap on the button, we need to connect these two things. For example, this will make both image to show DiceFour when the button is clicked:
+```
+@IBAction func rollButtonPressed(_ sender: UIButton) {
+    diceImageView1.image = UIImage (named: "DiceFour")
+    diceImageView2.image = UIImage (named: "DiceFour")
+}
+```
+
+Comment in Swift is same as C: `//` for single line comment, and `/* text */` as mult-line comment. 
+
+## Swift Playground
+To play with Swift code, could go to `File` -> `New` -> `Playground...`, then you get a code area and a consol to play with. You can press and hold the second icon in the top bar of the console and click `Automatically Run`. 
+
+`print("Hello \(2+3) World")` will print `Hello 5 World` to the console. This is called `String Interpolation`. 
+
+## Swift Arrays
+```
+var numbers = [35, 45, 2, 24]
+```
+Array index start from 0. Now create an array in the function rollButtonPressed: 
+```
+let diceArray = [UIImage (named: "DiceOne"),
+                 UIImage (named: "DiceTwo"),
+                 UIImage (named: "DiceThree"),
+                 UIImage (named: "DiceFour"),
+                 UIImage (named: "DiceFive"),
+                 UIImage (named: "DiceSix")];
+```
+
+And in the action function, add:
+```
+diceImageView1.image = diceArray[Int.random(in: 0...5)]
+diceImageView2.image = diceArray[Int.random(in: 0...5)]
+```
+This will allow the two dice images to change randomly when we click the button. 
+
+In Swift, you will have an error if you don't have equal amount of space on the left and right of the equal sign. 
+
+
+## Swift Variables
+```
+var number = 1
+print("The value of number is \(number).")
+```
+
+## Random numbers 
+```
+Int.random(in: 1 ... 10)  // generate a int number in the range of [1, 10]
+Int.random(in: 1 ..< 10)  // generate a int number in the range of [1, 10)
+Float.random(in: 1 ... 3) // generate a float number in the range of [1, 3]
+Float.random(in: 1 ..< 3) // generate a float number in the range of [1, 3)
+Bool.random()             // generate a true or a false
+array.shuffle()           // randomise the array
+```
+
+
 
 
 
