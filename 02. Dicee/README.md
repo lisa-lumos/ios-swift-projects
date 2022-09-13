@@ -144,14 +144,27 @@ Bool.random()             // generate a true or a false
 array.shuffle()           // randomise the array
 ```
 
+## Auto Layout
+With `auto layout`, our app's layout can be exactly what we want when the app runs on a different device with different screen size, it can also adapt to portrait and landscapte mode. 
 
+In our current Dice app, in the warning tab in the left pane, it shows "warning: Auto Layout Localization: Views without any layout constraints may clip their content or overlap other views. ". For example, if we switch to landscape mode in the simulator, our "Roll" button has completely disappeared from view. 
 
+If we switch to the "LaunchScreen.storyboard", and switch to landscape orientation in the storyboard view, we can see that the image is cut out and only partially seen. 
 
+### Constraints (Alignments and Pins)
+Switch back to portrait mode in storyboard. Adjust the background image size so it fits to all 4 edges. Select the background image in the storyboard. Expand the storyboard pane, so you see a bunch of icons show up in the bottom bar. The third icon from the right allow you to `Add New Constraints`. Make sure all 4 text boxes are all showing 0 (if you click on the drop down for the box, you get to choose to define relative to the safe area or to the view, or to other elements on the board), and click on the 4 red lines to make them change from faded red to bright red. Then click on `Add 4 constraints` button. 
 
+Now if we go to landscape mode, we can see that the background image is more or less fit the screen. If we go to the left panel inside the storyboard panel and click on `Constriants`, we can expand and see all the constainsts that are applied to our UI. We can see that now some constraints are set to the `Safe Area` of the screen. Since `Safe Area` is not the whole part of the screen, we need to set the boundary to the `Super View`, which is the whole screen. If we click on the constraint we want to change, and in the right panel that shows up, choose `Superview` for `Second Item` attribute, then we can see the images streches to cover the whole screen. 
 
+You can also select `Relative to Margin` in the `Second Item` attribute, margin is close to but inside the safe area. 
 
+Now at the bottom bar of the storyboard view, if we choose a different device, or a different orientation, our background image always displays perfectly. 
 
+### Alignments
+The next thing in the launch screen that need to be tackled in the logo image. We again need it to be centered for different devices and orientation. You can not use constraints anymore here, because it fixes points so it cannot adapt to landscape mode. Instead, select the logo image view, drag and `center` it on the screen, and click on the 4th icon `Align` from the right bottom bar. In the pop up window, select `Horizontally in Container` and `Vertically in Container` at the bottom, and click `Add 2 constraints`. Now if we switch to landscape mode, the logo is still centered. 
 
+### Pins
+Now put a Label element to the screen. select this element, and change its `Align` to `Horizontally in Container`; and its `Constraints` to '30px' below the logo. 
 
 
 
