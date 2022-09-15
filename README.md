@@ -11,10 +11,11 @@ Keywords: `Interface Builder outlet`, `IBOutlet`, `IBAction` ,`Dot notation`, `S
 
 Please wait while the `.gif` files are loading...
 
-| portrait | landscape |
-:-------------------------:|:-------------------------:
-![](/02. Dicee/App Snapshots/portrait.gif) | ![](/02. Dicee/App Snapshots/landscape.gif)
+| Portrait View | landscape View |
+| ----------- | ----------- |
+| <img src="/02. Dicee/App Snapshots/portrait.gif"> | <img src="/02.%20Dicee/App%20Snapshots/landscape.gif"> |
 
+  
 
 ## 01. I am Rich App
 My first App showing static contents. Created using xCode Storyboard.
@@ -23,5 +24,7 @@ Keywords: `Storyboard`
 
 App snapshots:
 
-<img src="/01. I am Rich/App Snapshots/portrait.png" width="30%"> <img src="/01. I am Rich/App Snapshots/Home Screen.png" width="30%">
+| App View | Home view |
+| ----------- | ----------- |
+|<img src="/01. I am Rich/App Snapshots/portrait.png">| <img src="/01. I am Rich/App Snapshots/Home Screen.png">|
 
