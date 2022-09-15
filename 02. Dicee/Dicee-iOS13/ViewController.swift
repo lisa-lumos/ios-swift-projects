@@ -37,5 +37,6 @@ class ViewController: UIViewController {
         // diceImageView2.image = diceArray.randomElement() as! UIImage
     }
     
+    
 }
 

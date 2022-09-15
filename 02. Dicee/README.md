@@ -166,6 +166,74 @@ The next thing in the launch screen that need to be tackled in the logo image. W
 ### Pins
 Now put a Label element to the screen. select this element, and change its `Align` to `Horizontally in Container`; and its `Constraints` to '30px' below the logo. 
 
+## Work on the App
+Now go to the "Main.storyboard" and set constraints for background image to fit to the whole View (click on the drop down to make sure to select relative to the view). 
+
+To constrain the location of the dice logo, the two dice images and the "Roll" button, it is hard pin or align the to center one by one, because some of them are not aligned to the center, and it would be hard to pin them to be adaptive to landscape mode. Now, we would use some `containers` to split up the screen into 3 equal parts, e.g., top, middle and bottom, then we can embed each elements relative to their own containers. 
+
+## Containers
+To create a `container`, go to the object library and search for "uiview", and will see the `View` element - drag it to the board. Then to drag our logo inside the view, in the left pane in the storyboard, drag the logo object below the `View` object, so it is `indented` below it. 
+
+Another way to embed objects into a view is to select the objects in the board, then `Editor` -> `Embed in` -> `View` from the menubar.  
+
+The third way to embed objects into a view is to select tht objects in the board, then click on the rightmost icon and select `View` at the bottom bar in the board. 
+
+Now all 3 containers have the same name, to differentiate them, rename it by selecting the view in the left pane, then click agian on its name, and type "Top View". An alternative way to do this is to select the view, and on the right pane, select the `identity inspector` tab, and under the `Document` section, change the name of the `Label` field. After renaming, you can reorder the three containers by dragging and dropping. 
+
+Now resize and align them roughly vertically so they look alined well. We need to give constrains to parent before giving constraints of its children relative to their parent. 
+
+## Stack Views
+Select all 3 containers, and go to the menu `Editor` -> `Embed in` -> `Stack View`, or select the last icon in the bottom bar in the board, and click `Stack View`, now we can see all three views now sits in a `Stack View` in the left panel. 
+
+Next, we need to give the `Stack View` some constraints relative to its parent (superview). Now resize the stack view to its four edges so they align with the "safe area", then add 4 restraints and make sure the drop down says they are respective to "safe area". 
+
+Note that if your stack view exceed the range of the safe area on the board, then safe area option will not show up in the drop down menu. You need to adjust and drag it in range first. You can alway fine tune any one of the constraints by selecting it in the left pane, and go to `Attributes inspector` tab in the right pane, and set the `Constant` field to 0, and `Second item` to `Safe Area`.
+
+Now we need to adjust things inside the `Stack View`. Because we originally roughly aligned the 3 views inside it vertically to each other, when you select the `Stack View` and inspect its attributes in the right pane, it automatically sets the `Axis` field to `Vertical`. Next, we change the `Distribution` field to `Fill Equally`, because we want all 3 views inside to have equal heights along the vertical axis. Set the `Spacing` field to 0, because we don't want any spacing between 3 views. 
+
+If we change the board to landscape orientation, we can see our constraints are still in place. Now that the parent of each our logo and dice images and the button are already constrained, we can then align the individual elements. Now align the "Roll" button to center in its container. 
+
+To put the two dice images in the middle, we need to put them into a horizontal container. Now select these two, and add them to a `Stack View`. Because originally they are relatively horizontal to each other, so the `Stack View`'s `Axis` field is automatically set to `Horizontal`. Now select this `Stack View`, and align to center relative to its parent, which is the "Middle View". You can also adjust its `Spacing` field to adjust the distance between the two dices. 
+
+The next step is to change the 3 containers to have a transparent background. Select these 3 in the left pane, and change the `Background` field to `Default`. 
+
+Now if we change to landscape view, we can see that all elements are aligned adaptively. 
+
+Our button has shrinked by default to fit the text contents inside the button. This becaue although it is centered in the "Bottom View", it doesn't have any `size constraints`. Now select the button, and click on the third icon from right at the bottom bar, and check the `Width` and/or `Height`, and set values as appropriate. Notice that as soon as we add the constraints, there is a `warning` shows up on the top bar, if we click on it, it shows `Fixed width constraints may cause clipping`. This means that if there are more text than its width, the text will get truncated in the display. Now click the yellow arrow that points rightward in the left pane inside of storyboard, it will show you more detail. Now click on the yellow triangle in the same place, it will show you the solutions. Click on the `Set Constraint to >= Current Width` and click `Confirm`, then the button width will adapt to the contents inside, but also be equal or wider then the specified value. Now if we expand the button object in the left pane, we can see it size constraints. 
+
+## Simulator Settings
+To record the Simulator as animated GIF, first hit `command` + `R` to start recording, then after recording is done, click the circle in the top bar, and right-click the window that shows up in the lower right side of the simulator, and select `Save as Animated GIF`. 
+
+Button `style` of `Default` can show click highlights in the Simulator. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
