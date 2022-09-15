@@ -23,6 +23,5 @@ Keywords: `Storyboard`
 
 App snapshots:
 
-<img src="/01. I am Rich/App Snapshots/portrait.png" width="30%"> 
-<img src="/01. I am Rich/App Snapshots/Home Screen.png" width="30%">
+<img src="/01. I am Rich/App Snapshots/portrait.png" width="30%"> <img src="/01. I am Rich/App Snapshots/Home Screen.png" width="30%">
 
