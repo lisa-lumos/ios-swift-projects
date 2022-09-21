@@ -31,18 +31,65 @@ class ViewController: UIViewController {
 }
 ```
 
+## Swift Functions and Scope
+```
+func getMilk() { // do stuff } // create a function
+getMilk() // call the function
 
+func getMilk(bottles Int) { // do stuff } // create a function
+getMilk(bottles: 2) // call the function
 
+func greeting1(){
+    print("Hello")
+    func greeting2() { // This function is only accesible from inside greeting1()
+        print("hey")
+    }
+}
+```
+To indent code, `Editor` -> `Structure` -> `Re-indent`
 
+## Link mulitple buttions to the same IBAction
+Hover over the circle preceding the `keyPressed` function, you can see that it highlights the top button. Now, drag and drop the circle to the rest of the buttons in storyboard. 
 
+To know the data type of a variable, hold on Option key and click on that variable. 
+```
+import UIKit
+import AVFoundation
 
+class ViewController: UIViewController {
+    var player: AVAudioPlayer!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 
+    @IBAction func keyPressed(_ sender: UIButton) {
+        // print("I got pressed. ")
+        // print(sender)
+        // print(sender.backgroundColor)
+        // var num = 3;
+        // var num: Int = 3;
+        // print(sender.currentTitle)
+        // playSound(soundName: "C")
+        playSound(soundName: sender.currentTitle!)
+    }
+    
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
+    }
+}
+```
 
-
-
-
-
+## Button press animation
+Dim the button that was pressed by 0.2 seconds and then make it go back to its original opacity to achieve the effect of an animated button press.
+```
+sender.alpha = 0.5
+DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+    sender.alpha = 1.0
+}
+```
 
 
 
