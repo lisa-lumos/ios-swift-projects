@@ -10,7 +10,7 @@ Please wait while the `.gif` files are loading...
 
 |  App View | Home View |
 | ----------- | ----------- |
-| <img src="04. Egg Timer/App Snapshots/animation.gif" style="width:300px"> | <img src="04. Egg Timer/App Snapshots/Home Screen.png" style="width:300px"> |
+| <img src="04. Egg Timer/App Snapshots/animation.gif" style="width:300px"> | <img src="04. Egg Timer/App Snapshots/home.png" style="width:300px"> |
 
 
 ## 03. Xylophone App

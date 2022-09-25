@@ -28,7 +28,7 @@ Note: when we drag and drop elements from UI to code, there are codes created in
 
 If you accidentally changed the name of `diceImageView1` inside the `@IBOutlet weak var diceImageView1: UIImageView!` in the code, there will be an "this class is not key value coding-compliant for the key diceImageView1" error when you run the app. Solution is to right click on the element in the UI, and click on the cross sign ✖️ preceeding the "View Controller" to delete this connection, and in the code file, click the circle in front of the corresponding line and drag and drop it back to the element in UI builder. 
 
-In the future, if you want to `rename the connection`, the best way is to click on the name in the code, and click on Refactor -> Rename... This change will make the new name to be applied to everywhere this name is used. 
+In the future, if you want to `rename the connection`, the best way is to `right-click` on the name in the code, and click on `Refactor` -> `Rename`... This change will make the new name to be applied to everywhere this name is used. 
 
 When you hover the circle proceeding the row `@IBOutlet weak var diceImageView1: UIImageView!` in the code, you can see that the corresponding UI element is highlighted on the storyboard. 
 
