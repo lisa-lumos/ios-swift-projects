@@ -1,17 +1,19 @@
 # iOS Swift projects
 Note: Inside each project folder, I have created a `README.md` file that describes how to create the corresponding app. 
 
-## 04. Egg Timer App
-A timer for boilder eggs with different hardness. 
+## 05. Quizzler App
 
-Keywords: 
+
+## 04. Egg Timer App
+A timer for boilder eggs with different hardness. The progress bar will show progress, and a sound will be played when timer is up. 
+
+Keywords: `Optionals`, `scheduledTimer`, `Progress View`
 
 Please wait while the `.gif` files are loading...
 
 |  App View | Home View |
 | ----------- | ----------- |
 | <img src="04. Egg Timer/App Snapshots/animation.gif" style="width:300px"> | <img src="04. Egg Timer/App Snapshots/home.png" style="width:300px"> |
-
 
 ## 03. Xylophone App
 This plays a different sound according to the button that is pressed. There's also animation to the button press. 
