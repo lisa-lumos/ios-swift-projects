@@ -1,5 +1,17 @@
 # iOS Swift projects
-Note: Inside each project folder, I have created a `README.md` file that describes how to create the corresponding app. 
+Note: Inside each project folder, I have created a `README.md` file that describes how to create each of the corresponding app. 
+
+## 06. BMI Calculator App
+[desc]
+
+keywords: []
+
+Please wait while the `.gif` files are loading...
+
+|  App View | Home View |
+| ----------- | ----------- |
+| <img src="06. BMI Calculator/App Snapshots/animation.gif" style="width:300px"> | <img src="06. BMI Calculator/App Snapshots/home.png" style="width:300px"> | 
+
 
 ## 05. Quizzler App
 A quizz app for user to answer sets of questions. It uses button color to indicates the correctness of user's answer, and displays a progress bar. It used the MVC design pattern. 
