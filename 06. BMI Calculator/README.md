@@ -88,15 +88,24 @@ dragon.talk(speech: "I am a round dragon. ")
 Apple's most basic class is the NSObject. For example, UIResponder inherits it, which is in inherited by UIView and then UIControl, then UIButton. At each level, more code and more capabilities are added so that component become less generic and more specialized. 
 
 ## Struct v.s. Classes
+With struct, you get the initializer for free, no need for a init method. But with class, if the instance vars have no vals, then you need to type a init method. When you assign an existing object to new object name, it actually refers to the same object. But with structs, because they are immutable, when you assign a existing struct to another struct name, it actually makes a deep copy, so you get two structs. In short, structs are passed by value, while classes are passed by reference. 
 
+Apple recommends that you always use structures by default. But if you need inheritance, or need to work with c#, they you can turn your structure into a class. 
 
+## Create a custom UIViewController class
+Right click on the folder "Controllers", and create a new swift file named "SecondViewController.swift". Now try to create a similar class that looks like the one in "ViewController.swift". 
 
+```
+import UIKit
 
+class SecondViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    } 
+}
+```
 
-
-
-
-
+Note that we need to import UIKit to be able to access the names that starts with UI. Help -> Developer Documentation... , we can find a section on UIKit. If you're using UIKit, Foundation is already implemented in it so you don't need to import it twice.
 
 
 
