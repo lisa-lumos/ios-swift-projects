@@ -107,6 +107,56 @@ class SecondViewController: UIViewController {
 
 Note that we need to import UIKit to be able to access the names that starts with UI. Help -> Developer Documentation... , we can find a section on UIKit. If you're using UIKit, Foundation is already implemented in it so you don't need to import it twice.
 
+## Create a UI programmatically and pass data between ViewControllers
+UILabel inherits UIView (option and click to inspect). 
+
+In SecondViewController.swift:
+```
+import UIKit
+
+class SecondViewController: UIViewController {
+    
+    var bmiValue = "0.0"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .red
+        let label = UILabel()
+        label.text = bmiValue
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        view.addSubview(label)
+    }
+}
+```
+
+In ViewController.swift, inside the ViewController class:
+```
+    @IBAction func calculatePressed(_ sender: UIButton) {
+        let height = heightSlider.value
+        let weight = weightSlider.value
+        let bmi = weight / (height * height)
+        // print(bmi)
+        
+        let secondVC = SecondViewController()
+        secondVC.bmiValue = String(format: "%.1f", bmi)
+        
+        self.present(secondVC, animated: true, completion: nil)
+    }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
