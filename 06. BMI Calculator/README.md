@@ -145,15 +145,40 @@ In ViewController.swift, inside the ViewController class:
     }
 ```
 
+## Segues and Navigation for Multi-Screen Apps
+There's a much easier way of presenting a second screen. Delete the SecondViewController.swift file, and File -> New -> File..., under Source pane, choose Cocoa Touch Class, instead of Swift File this time. Class: ResultViewController, Next, Subclass of: UIViewController, Next, Group: Controllers, Create. Now you have got a template:
 
+```
+import UIKit
 
+class ResultViewController: UIViewController {
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
+        // Do any additional setup after loading the view.
+    }
+    
+    /*
+    // MARK: - Navigation
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+}
+```
 
+Next, go to Main.storyboard, and click to select the pre-designed second screen in the left panel, in the right most panel, on the top bar, click on the icon that shows the identity inspector, Class: ResultViewController. 
 
+Go to Assistant view, and put the ResultViewController and its controller file side by side. Create an IBOutlet for the Label that displays bmi value, and name it bmiLabel. Do the same with adviceLabel. Create an IBAction for the Recalculate button named recalculatePressed. 
 
+It is better if the name of the controller file could tell us which screen it manages, so rename the ViewController.swift as CalculateViewController. To do this, the easiest way (one place change all) is to open this file, and right click on the class name, and Refactor -> Rename...
 
+Previously, we had to manually link the second view controller using `let secondVC = SecondViewController()`. The much easier way to do this is to create a Segue. To do this, click to select the Calculate View Controller in the left pane in the storyboard view, and hold on control key and drag it to the Result View Controller in the same pane. Select Present Modally. Then in the screen graphical view pane, there is an arrow connecting first screen to the second screen. There is an icon in the middle of the arrow that allow you to change the transition type. Click on this icon, and show the Attributes inspector on the right pane, Identifier: goToResult. 
 
+To use this Segue, go to CalculateViewController.swift, and replace the `let secondVC = SecondViewController()` and following two lines with `self.performSegue(withIdentifier: "goToResult", sender: self)`. Now if run the app, and click the calculate button, it will show the second screen. If there's an error like `'NSUnknownKeyException', reason: ... this class is not key value coding-compliant for the key ...`, then make sure that the Result View Controller, Identity inspector, under Custom Class pane, the Module filed is not empty (either Inherit Module from Target is checked, or BMI_Calculator is selected from the drop-down menu). 
 
 
 
