@@ -180,6 +180,40 @@ Previously, we had to manually link the second view controller using `let second
 
 To use this Segue, go to CalculateViewController.swift, and replace the `let secondVC = SecondViewController()` and following two lines with `self.performSegue(withIdentifier: "goToResult", sender: self)`. Now if run the app, and click the calculate button, it will show the second screen. If there's an error like `'NSUnknownKeyException', reason: ... this class is not key value coding-compliant for the key ...`, then make sure that the Result View Controller, Identity inspector, under Custom Class pane, the Module filed is not empty (either Inherit Module from Target is checked, or BMI_Calculator is selected from the drop-down menu). 
 
+In the ResultViewController.swift file, add a variable to the class: `var bmiValue:String?`. In a storyboard-based application, you will often want to do a little preparation before navigation. So go to the CalculatorViewController.swift, and add: 
+```swift
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // sender.destination is the storyboard that the segue points to
+        // need to check we goes to the correct segue,
+        // as there could be multiple segues originating from one storyboard
+        if segue.identifier == "goToResult" {
+            // Need to down caste the destination type using as!
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.bmiValue = bmiValue
+        }
+    }
+```
+And in ResultViewController.swift:
+```swift
+class ResultViewController: UIViewController {
+    var bmiValue: String?
+
+    @IBOutlet weak var bmiLabel: UILabel!
+    @IBOutlet weak var adviceLabel: UILabel!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        bmiLabel.text = bmiValue
+    }
+    
+    @IBAction func recalculatePressed(_ sender: UIButton) {
+        // return to caller screen
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+```
+
+A trick: When we create apps that have multiple screens, what happens is that newer screens get layered on top of the older screens, and if you want to see them in 3D, first make sure that your app is running, then click on the Debug View Hierarchy button in the bottom bar. Then a new tab will open in XCode, and if you click and drag the displayed screen, then you can see the view in 3D. You can also see how the labels lay on top of other UI elements. It is a handy way of debugging what is going on with the UI. 
 
 
 
