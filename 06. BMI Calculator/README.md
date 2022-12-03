@@ -215,6 +215,173 @@ class ResultViewController: UIViewController {
 
 A trick: When we create apps that have multiple screens, what happens is that newer screens get layered on top of the older screens, and if you want to see them in 3D, first make sure that your app is running, then click on the Debug View Hierarchy button in the bottom bar. Then a new tab will open in XCode, and if you click and drag the displayed screen, then you can see the view in 3D. You can also see how the labels lay on top of other UI elements. It is a handy way of debugging what is going on with the UI. 
 
+Result: 
+
+ResultViewController.swift:
+```swift
+import UIKit
+
+class ResultViewController: UIViewController {
+    var bmiValue: String?
+
+    @IBOutlet weak var bmiLabel: UILabel!
+    @IBOutlet weak var adviceLabel: UILabel!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        bmiLabel.text = bmiValue
+    }
+    
+
+    @IBAction func recalculatePressed(_ sender: UIButton) {
+        // return to caller screen
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+```
+
+CalculateViewController.swift: 
+```swift
+import UIKit
+
+class CalculateViewController: UIViewController {
+    var bmiValue = "0.0"
+    
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    
+    @IBOutlet weak var heightSlider: UISlider!
+    
+    @IBOutlet weak var weightSlider: UISlider!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func heightSliderChanged(_ sender: UISlider) {
+        // print(round(sender.value * 100)/100.0)
+        // String(format: "%.2f", sender.value)
+        heightLabel.text = String(format: "%.2f", sender.value) + " m"
+    }
+    @IBAction func weightSliderChanged(_ sender: UISlider) {
+        // print(Int(sender.value))
+        weightLabel.text = String(format: "%.0f", sender.value) + " kg"
+        
+    }
+
+    @IBAction func calculatePressed(_ sender: UIButton) {
+        let height = heightSlider.value
+        let weight = weightSlider.value
+        let bmi = weight / (height * height)
+        // print(bmi)
+        bmiValue = String(format: "%.1f", bmi)
+        
+        self.performSegue(withIdentifier: "goToResult", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // sender.destination is the storyboard that the segue points to
+        // need to check we goes to the correct segue,
+        // as there could be multiple segues originating from one storyboard
+        if segue.identifier == "goToResult" {
+            // Need to down caste the destination type using as!
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.bmiValue = bmiValue
+        }
+    }
+}
+```
+
+## Adopting MVC by Creating a CalculatorBrain
+Right click on the Models folder and create a new swift file inside, called CalculatorBrain.swift. Inside, create a struct called CalculatorBrain. 
+
+Inside CalculatorViewController.swift: 
+```swift
+import Foundation
+
+struct CalculatorBrain {
+    // includes properties and methods required to calculate BMI, interpret the BMI, provide advice and the appropriate color
+    
+    // Note that when struct is initialized, bmi initial value is unknown
+    // if we do not assign a value now and here, we need to pass a value into this struct to initialize it. To do this correctly, need to set bmi as an optional float.
+    // var bmi: Float = 0.0
+    var bmi: Float?
+    
+    mutating func calculateBMI(height: Float, weight: Float) {
+        bmi = weight / (height * height)
+    }
+    
+    func getBMIValue() -> String {
+        // use bmi! - but if it is called when bmi is still nil, app will crash. Details see next section
+        let bmiTo1DecimalPlace = String(format: "%.1f", bmi!)
+        return bmiTo1DecimalPlace
+    }
+}
+```
+
+And inside CalculateViewCOntroller.swift: 
+```swift
+import UIKit
+
+class CalculateViewController: UIViewController {
+    
+    var calculatorBrain = CalculatorBrain()
+    // var bmiValue = "0.0"
+    
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    
+    @IBOutlet weak var heightSlider: UISlider!
+    
+    @IBOutlet weak var weightSlider: UISlider!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func heightSliderChanged(_ sender: UISlider) {
+        // print(round(sender.value * 100)/100.0)
+        // String(format: "%.2f", sender.value)
+        heightLabel.text = String(format: "%.2f", sender.value) + " m"
+    }
+    @IBAction func weightSliderChanged(_ sender: UISlider) {
+        // print(Int(sender.value))
+        weightLabel.text = String(format: "%.0f", sender.value) + " kg"
+        
+    }
+
+
+    @IBAction func calculatePressed(_ sender: UIButton) {
+        let height = heightSlider.value
+        let weight = weightSlider.value
+        // let bmi = weight / (height * height)
+        // print(bmi)
+        // bmiValue = String(format: "%.1f", bmi)
+        calculatorBrain.calculateBMI(height: height, weight: weight)
+        self.performSegue(withIdentifier: "goToResult", sender: self)
+        // the starting "self" can be omitted.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // sender.destination is the storyboard that the segue points to
+        // need to check we goes to the correct segue,
+        // as there could be multiple segues originating from one storyboard
+        if segue.identifier == "goToResult" {
+            // Need to down caste the destination type using as!
+            let destinationVC = segue.destination as! ResultViewController
+            // destinationVC.bmiValue = bmiValue
+            destinationVC.bmiValue = calculatorBrain.getBMIValue()
+        }
+    }
+}
+```
+
+
+
+
+
+
+
 
 
 
