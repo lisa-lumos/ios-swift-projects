@@ -376,7 +376,64 @@ class CalculateViewController: UIViewController {
 }
 ```
 
+## Optional Binding, Chaining, and the Nil Coalescing Operator
+### Force unwrapping
+```swift
+// optional!
+let myOptional: String?
+myOptional = "lisa"
+let myText: String = myOptional // note this will not compile, because string and optional string are diff data types
+let myText: String = myOptional! // if force unwrap it, if it is an nil, will have error at runtime. So need to worry about it actually being nil. 
+```
 
+### Check for nil value
+```swift
+let myOptional: String?
+myOptional = "lisa"
+if myOptional != nil { // checking is safe, but it is wordy
+  let text: String = myOptional!
+}
+```
+
+### Optional Binding
+Allow you to work with the safe version of optional that has been unwrapped. 
+```swift
+let myOptional: String?
+myOptional = "lisa"
+if let safeOptional = myOptional {
+  let text: String = safeOptional
+}
+```
+
+### Nil Coalescing Operator
+If we want to provide a default safeOptional value in case the optional is nil:
+```swift
+// optional ?? defaultValue
+let myOptional: String?
+myOptional = "lisa" 
+myOptional = nil
+let text: String = myOptional ?? "I am the default val"
+```
+
+### Optional Chaining
+For optional struct or optional class, 
+```swift
+// optional?.property
+// optional?.method()
+struct MyOptional {
+  var property = 123
+  func method() {
+    print("I am the struct's method")
+  }
+}
+let myOptional: MyOptional?
+myOptional = MyOptional()
+myOptional = nil
+print(myOptional.property) // this cannot compile, because it is optional
+print(myOptional!.property) // this has runtime error, because it is nil, cannot access 123
+print(myOptional?.property) // is optional is not nil, access its property; otherwise return nil
+myOptional?.method() // execute the method only if optional is not nil
+```
 
 
 
