@@ -414,6 +414,7 @@ myOptional = "lisa"
 myOptional = nil
 let text: String = myOptional ?? "I am the default val"
 ```
+I prefer this one, because it is concise. Note that you need to have space on left and right of `??`. 
 
 ### Optional Chaining
 For optional struct or optional class, 
@@ -435,12 +436,121 @@ print(myOptional?.property) // is optional is not nil, access its property; othe
 myOptional?.method() // execute the method only if optional is not nil
 ```
 
+## Add advice and color based on BMI value
+So the CalculatorBrain.swift becomes:
+```swift
+import Foundation
 
+struct CalculatorBrain {
+    // includes properties and methods required to calculate BMI, interprete the BMI, provide advice and the appropriate color
+    
+    // Note that when struct is initialized, bmi initial value is unknown
+    // if we do not assign a value now and here, we need to pass a value into this struct to initialize it. To do this correctly, need to set bmi as an optional float.
+    // var bmi: Float = 0.0
+    var bmi: Float?
+    
+    mutating func calculateBMI(height: Float, weight: Float) {
+        bmi = weight / (height * height)
+    }
+    
+    func getBMIValue() -> String {
+        // use bmi! - but if it is called when bmi is still nil, app will crash. Details see next section
+        let bmiTo1DecimalPlace = String(format: "%.1f", bmi ?? 0.0)
+        return bmiTo1DecimalPlace
+    }
+}
+```
 
+## Grouping bmi and advice and its color into the same datatype
+Create a new swift file in the Models folder as BMI.swift:
+```swift
+import UIKit
 
+struct BMI {
+    let value: Float
+    let advice: String
+    let color: UIColor
+}
+```
 
+Update CalculatorBrain.swift to use the BMI struct:
+```swift
+import UIKit
 
+struct CalculatorBrain {
+    // includes properties and methods required to calculate BMI, interprete the BMI, provide advice and the appropriate color
+    
+    // Note that when struct is initialized, bmi initial value is unknown
+    // if we do not assign a value now and here, we need to pass a value into this struct to initialize it. To do this correctly, need to set bmi as an optional float.
+    // var bmi: Float = 0.0
+    var bmi: BMI?
+    
+    mutating func calculateBMI(height: Float, weight: Float) {
+        let bmiValue = weight / (height * height)
+        if bmiValue < 18 {
+            bmi = BMI(value: bmiValue, advice: "Eat more pies!", color: UIColor(red: 105/255, green: 182/255, blue: 245/255, alpha: 1))
+        } else if bmiValue < 24.9 {
+            bmi = BMI(value: bmiValue, advice: "Fit as a fiddle!", color: UIColor(red: 108/255, green: 204/255, blue: 124/255, alpha: 1))
+        } else {
+            bmi = BMI(value: bmiValue, advice: "Eat less pies!", color: UIColor(red: 204/255, green: 108/255, blue: 161/255, alpha: 1))
+        }
+        
+    }
+    
+    func getBMIValue() -> String {
+        let bmiTo1DecimalPlace = String(format: "%.1f", bmi?.value ?? 0.0)
+        return bmiTo1DecimalPlace
+    }
+    
+    func getAdvice() -> String {
+        return bmi?.advice ?? "No advice"
+    }
+    
+    func getColor() -> UIColor {
+        return bmi?.color ?? UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    }
+}
+```
 
+Update the `prepare()` function in the CalculateViewController.swift to reflect advice and color values:
+```swift
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // sender.destination is the storyboard that the segue points to
+        // need to check we goes to the correct segue,
+        // as there could be multiple segues originating from one storyboard
+        if segue.identifier == "goToResult" {
+            // Need to down caste the destination type using as!
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.bmiValue = calculatorBrain.getBMIValue()
+            destinationVC.advice = calculatorBrain.getAdvice()
+            destinationVC.color = calculatorBrain.getColor()
+        }
+    }
+```
 
+Update the `viewDidLoad()` function in ResultViewController.swift file to use these values:
+```swift
+import UIKit
 
+class ResultViewController: UIViewController {
+    var bmiValue: String?
+    var advice: String?
+    var color: UIColor?
+
+    @IBOutlet weak var bmiLabel: UILabel!
+    @IBOutlet weak var adviceLabel: UILabel!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        bmiLabel.text = bmiValue
+        adviceLabel.text = advice
+        view.backgroundColor = color
+    }
+    
+    @IBAction func recalculatePressed(_ sender: UIButton) {
+        // return to caller screen
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+```
 

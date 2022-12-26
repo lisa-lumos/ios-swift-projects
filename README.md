@@ -2,9 +2,9 @@
 Note: Inside each project folder, I have created a `README.md` file that describes how to create each of the corresponding app. 
 
 ## 06. BMI Calculator App
-[desc]
+BMI calculator that calculates BMI value based on height and weight slider, and displays the BMI value, advice based on the value, and color accordingly
 
-keywords: []
+keywords: `classes and inheritance`, `custom class`, `segues and multi-screen apps`, `Nil Coalescing Operator`, `` 
 
 Please wait while the `.gif` files are loading...
 
